@@ -1,4 +1,4 @@
-# Starter folder
+# Canada Inflation
 
 ## Overview
 
