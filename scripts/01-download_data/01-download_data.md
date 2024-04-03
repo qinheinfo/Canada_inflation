@@ -2,38 +2,42 @@
 Navigate to Statistics Canada's [https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000501](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000413) data set. 
 
 
-## Step 1: Customize data
-The first step is to open the data set's full customization table. Below the "customize table" window, click "Add/Remove data". 
+## Step 1: Open data
+1. Access the full customization table of the dataset.
+2. Below the "Customize table" option, click on "Add/Remove data" if you need to adjust the dataset.
 
-[![Step 1](Home/Downloads/Canada_Inflation/scripts/01-download_data/images/step1.png)](Canada_Inflation/scripts/01-download_data/images/step1.png)
+
+![step1](https://github.com/qinheinfo/Canada_inflation/blob/main/scripts/01-download_data/images/step1.png?raw=true)
 
 
 ## Step 2: Set the reference period
-After selecting the desired products, click on the "Reference period" tab to select a date range. Although data is available for 2023, as of this paper's writing, the year is incomplete and thus will not me meaningful in a year-over-year analysis. Select the "from" date as "January 2017" and the "to" date as "December 2022". 
+1. After selecting the desired data, navigate to the "Reference period" tab.
+2. Set the "from" date to "2019" and the "to" date to "2023".
 
-[![Step 2](https://raw.githubusercontent.com/seb646/groceries-and-inflation/main/guides/images/00-step_4.png)](https://raw.githubusercontent.com/seb646/groceries-and-inflation/main/guides/images/00-step_4.png)
+![Step2](https://github.com/qinheinfo/Canada_inflation/blob/main/scripts/01-download_data/images/step2.png?raw=true)
 
 
 ## Step 3: Apply the changes
-This is an important step as it refreshes the fetched data to reflect all of the changes we made in the previous step. 
+Click the "Apply" button at the bottom of the customization window to confirm your selections.
 
-Click the "Apply" button at the bottom of the "Customize table" window. 
+![Step3](https://github.com/qinheinfo/Canada_inflation/blob/main/scripts/01-download_data/images/step3.png?raw=true)
 
 
 ## Step 4: Download the dataset
-Once you've applied the changes, double check that the changes you made are reflected in the displayed data. After confirming, you may download the data set. 
+1. Double-check that the data displayed reflects your changes.
+2. Click the "Download options" button above the displayed data.
+3. In the pop-up window, select "CSV Download selected data" for downloading.
 
 Click the "Download options" button above the data and below the "Customize table" window. This will open a pop-up window, shown below, with various download options.
 
-Select the first download option, titled "CSV Download as displayed". Ensure this is the very first option. 
+Select "CSV Download selected data".
 
-[![Step 4](https://raw.githubusercontent.com/seb646/groceries-and-inflation/main/guides/images/00-step_6.png)](https://raw.githubusercontent.com/seb646/groceries-and-inflation/main/guides/images/00-step_6.png) 
-
+![Step 4](https://github.com/qinheinfo/Canada_inflation/blob/main/scripts/01-download_data/images/step4.png?raw=true)
 
 ## Step 5: Preview CSV file 
-After downloading the CSV file, open it in your preferred CSV editor (like Microsoft Excel) and ensure it matches the example a below. If it does not, repeat this process until it does or open an issue. 
+After downloading, preview the CSV file in your preferred editor to ensure it matches your requirements. Repeat the download process if necessary.
 
-[![Step 5](https://raw.githubusercontent.com/seb646/groceries-and-inflation/main/guides/images/00-step_7.png)](https://raw.githubusercontent.com/seb646/groceries-and-inflation/main/guides/images/00-step_7.png) 
+![Step 5](https://github.com/qinheinfo/Canada_inflation/blob/main/scripts/01-download_data/images/step5.png?raw=true) 
 
 ## Step 6: Move file into repository
-After confirming the file displays accurate information, move it into the `inputs/data` folder. 
+Once the dataset is confirmed to be correct, move it into the `data/raw_data` folder in your repository for further processing or analysis.

@@ -1,44 +1,46 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Install the dependencies required for this project
+# Author: Qin He
+# Date: April 1, 2024
+# Contact: thisisheqins@gmail.com
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: You must also have the R language installed
+# GitHub: https://github.com/qinheinfo/Canada_inflation/tree/main
 
-#### Workspace setup ####
+
+#### Workspace set-up ####
 library(tidyverse)
+library(dplyr)
+library(here)
+library(readr)
+library(janitor)
+library(arrow)
+library(lubridate)
 
-#### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
-
-cleaned_data <-
-  raw_data |>
-  janitor::clean_names() |>
-  select(wing_width_mm, wing_length_mm, flying_time_sec_first_timer) |>
-  filter(wing_width_mm != "caw") |>
+#### Import and filter the raw data ####
+raw_data <- read_csv(here::here("data/raw_data/Raw data.csv"), show_col_types = FALSE) %>%
+  clean_names() %>%
+  select(ref_date, products_and_product_groups, value) %>%
+  # Assuming 'All-items' is a category, and adding placeholders for specific products
+  filter(products_and_product_groups %in% c("All-items", "PLACEHOLDER_FOR_SPECIFIC_PRODUCTS")) %>%
   mutate(
-    flying_time_sec_first_timer = if_else(flying_time_sec_first_timer == "1,35",
-                                   "1.35",
-                                   flying_time_sec_first_timer)
-  ) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "490",
-                                 "49",
-                                 wing_width_mm)) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "6",
-                                 "60",
-                                 wing_width_mm)) |>
-  mutate(
-    wing_width_mm = as.numeric(wing_width_mm),
-    wing_length_mm = as.numeric(wing_length_mm),
-    flying_time_sec_first_timer = as.numeric(flying_time_sec_first_timer)
-  ) |>
-  rename(flying_time = flying_time_sec_first_timer,
-         width = wing_width_mm,
-         length = wing_length_mm
-         ) |> 
-  tidyr::drop_na()
+    value = as.numeric(value),
+    year = as.integer(ref_date)
+  ) %>%
+  drop_na(value) # Drop rows where 'value' is NA
 
-#### Save data ####
-write_csv(cleaned_data, "outputs/data/analysis_data.csv")
+# Example placeholder for specific products could be replaced with actual product names like "Milk", "Bread", etc.
+
+#### Optional: Aggregate data ####
+# If your data has multiple entries per product group per year, you may want to aggregate it.
+# This step averages the 'value' by 'year' and 'products_and_product_groups', adjust as necessary.
+aggregated_data <- raw_data %>%
+  group_by(year, products_and_product_groups) %>%
+  summarise(value = mean(value, na.rm = TRUE), .groups = 'drop')
+
+#### Save cleaned data ####
+# Adjust the file path and format as needed
+write_csv(aggregated_data, here::here("data/cleaned_data.csv"))
+# For Parquet format
+write_parquet(aggregated_data, here::here("data/cleaned_data.parquet"))
+

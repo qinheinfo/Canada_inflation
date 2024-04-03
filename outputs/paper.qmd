@@ -1,24 +1,46 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Analyzing Inflation Dynamics in Canada During and After the COVID-19 Pandemic: A Deep Dive into Consumer Price Index Movements from 2019 to 2023"
+format: pdf
 author: 
-  - Qin He
-thanks: "Code and data are available at: https://github.com/qinheinfo/Canada_inflation/tree/main"
+- Qin He
+abstract: "The COVID-19 pandemic has left a significant imprint on global economic structures, influencing inflation rates worldwide. Canada, like many countries, experienced fluctuating inflation rates during and post-pandemic, marking a period of economic instability and adjustment. This paper delves into the inflation dynamics in Canada from 2019 to 2023, with a special focus on the consumer price index (CPI) as a reflection of the cost of goods and services impacting the everyday lives of Canadians. It explores the trajectory of the overall inflation rate, which peaked in 2023, highlighting the role of various sectors, including food, housing, and energy, in driving these trends. By analyzing data from Statistics Canada, this study provides insights into how the pandemic and subsequent recovery phases have affected inflation. It examines the interplay between supply chain disruptions, monetary policy responses, and changes in consumer behavior, culminating in a comprehensive overview of inflation's impact on the Canadian economy. This analysis not only sheds light on the inflationary trends but also contributes to understanding the broader economic implications of the COVID-19 pandemic on Canada."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
-format: pdf
-number-sections: true
+editor: visual
+toc: TRUE
+toc-depth: 1
+number-sections: TRUE
 bibliography: references.bib
+thanks: "See the GitHub repository supporting this analysis: https://github.com/qinheinfo/Canada_inflation"
 ---
 
 ```{r}
 #| include: false
 #| warning: false
 #| message: false
+#| echo: false
+#| output: false
 
 library(tidyverse)
 library(palmerpenguins)
+library(lubridate)
+library(dplyr)
+library(knitr)
+library(janitor)
+library(scales)
+library(RColorBrewer)
+library(ggplot2)
+library(kableExtra)
+library(here)
+library(arrow)
+
+# Fetch the the clean inflation data
+inflation_data <- arrow::read_parquet(here::here("----"), show_col_types = FALSE)
+
+# Fetch clean CPI grocery item data
+grocery_data <- arrow::read_parquet(here::here("----"), show_col_types = FALSE)
+```
+
 ```
 
 
@@ -73,33 +95,12 @@ Talk way more about it.
 
 
 
-# Model
+# Data
 
-The goal of our modelling strategy is twofold. Firstly,...
+## Measurement
+xxx
 
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
-
-### Model justification
-
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
+## Data Analysis
 
 
 # Results
