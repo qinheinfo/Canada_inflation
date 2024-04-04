@@ -1,6 +1,6 @@
 ---
 title: "Analyzing Inflation Dynamics in Canada During and After the COVID-19 Pandemic: A Deep Dive into Consumer Price Index Movements from 2019 to 2023"
-format: pdf
+format: html
 author: 
 - Qin He
 abstract: "The COVID-19 pandemic has left a significant imprint on global economic structures, influencing inflation rates worldwide. Canada, like many countries, experienced fluctuating inflation rates during and post-pandemic, marking a period of economic instability and adjustment. This paper delves into the inflation dynamics in Canada from 2019 to 2023, with a special focus on the consumer price index (CPI) as a reflection of the cost of goods and services impacting the everyday lives of Canadians. It explores the trajectory of the overall inflation rate, which peaked in 2023, highlighting the role of various sectors, including food, housing, and energy, in driving these trends. By analyzing data from Statistics Canada, this study provides insights into how the pandemic and subsequent recovery phases have affected inflation. It examines the interplay between supply chain disruptions, monetary policy responses, and changes in consumer behavior, culminating in a comprehensive overview of inflation's impact on the Canadian economy. This analysis not only sheds light on the inflationary trends but also contributes to understanding the broader economic implications of the COVID-19 pandemic on Canada."
@@ -34,14 +34,11 @@ library(kableExtra)
 library(here)
 library(arrow)
 
-# Fetch the the clean inflation data
-inflation_data <- arrow::read_parquet(here::here("----"), show_col_types = FALSE)
 
-# Fetch clean CPI grocery item data
-grocery_data <- arrow::read_parquet(here::here("----"), show_col_types = FALSE)
+# Fetch clean CPI product item data
+product_data <- read.csv(here::here("data/cleaned_data.csv"), stringsAsFactors = FALSE)
 ```
 
-```
 
 
 # Introduction
@@ -59,38 +56,78 @@ xxx
 
 ## Data Analysis
 
-
 # Results
 
-Our results are summarized in @tbl-modelresults.
+## Food
 
 ```{r}
+#| messages: false
 #| echo: false
-#| eval: true
 #| warning: false
-#| message: false
 
-library(rstanarm)
+# Load necessary libraries
+library(ggplot2)
+library(readr)
 
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Filter for the "Food" and "All-items" product groups
+filtered_data <- data[data$products_and_product_groups %in% c('Food', 'All-items'),]
+
+# Plotting
+ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_groups, group = products_and_product_groups)) +
+  geom_line(size = 1) +  # Draw lines for both groups
+  geom_point(size = 2) +  # Highlight data points for both groups
+  labs(
+    title = "Trend of Value of Food and All-items from 2019 to 2023",
+    y = "Value",
+    x = "Year",
+    color = "Product Group"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
+
 ```
-
-
 ```{r}
+#| messages: false
 #| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
 #| warning: false
+#| label: fig-2
+#| fig-cap: "Comparison of Food Value and All-items Value Over Time"
+#| fig-align: center
+#| fig-width: 10
+#| fig-height: 3
+# Read and prepare the dataset for displaying in a table format
+library(readr)
+library(dplyr)
+library(knitr)
+library(kableExtra)
 
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Reshape data to wide format using modern pipe syntax
+wide_data <- data |> 
+  filter(products_and_product_groups %in% c('Food', 'All-items')) |>
+  spread(key = products_and_product_groups, value = value) |>
+  rename(Year = ref_date)
+
+# Assuming that the 'value' columns are already in the correct format and do not need additional formatting
+
+# Prepare the data for the table display
+wide_data_display <- wide_data |>
+  select(Year, Food, `All-items`) |> 
+  rename(
+    `Food Value` = Food, 
+    `All-items Value` = `All-items`
+  )
+
+# Render the table using knitr::kable and kableExtra::kable_styling
+wide_data_display |>
+  knitr::kable(align = "l", booktabs = TRUE, escape = FALSE, linesep = "" ) |>
+  kable_styling(font_size = 10, latex_options = "hold_position", full_width = TRUE)
 ```
 
 
@@ -127,47 +164,12 @@ In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. 
 
 In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
 
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
-```
 
 ## Diagnostics
 
 @fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
 
 @fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
-```
 
 
 
