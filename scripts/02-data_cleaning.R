@@ -21,12 +21,7 @@ library(lubridate)
 raw_data <- read_csv(here::here("data/raw_data/Raw data.csv"), show_col_types = FALSE) %>%
   clean_names() %>%
   select(ref_date, products_and_product_groups, value) %>%
-  mutate(
-    value = as.numeric(value),
-    year = year(ymd(ref_date)) # Convert ref_date to year
-  ) %>%
   drop_na(value) # Drop rows where 'value' is NA
-
 
 # Ensure this is the correct variable containing cleaned or aggregated data
 cleaned_data <- raw_data # Placeholder: replace with actual cleaned/aggregated data variable if different
@@ -34,5 +29,5 @@ cleaned_data <- raw_data # Placeholder: replace with actual cleaned/aggregated d
 
 #### Save cleaned data ####
 # Adjust the file path and format as needed
-write_csv(aggregated_data, here::here("data/cleaned_data.csv"))
+write_csv(cleaned_data, here::here("data/cleaned_data.csv"))
 

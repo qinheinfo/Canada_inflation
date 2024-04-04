@@ -1,6 +1,76 @@
-year,products_and_product_groups,value
+ref_date,products_and_product_groups,value
 2019,All-items,136
 2020,All-items,137
 2021,All-items,141.6
 2022,All-items,151.2
 2023,All-items,157.1
+2019,Food,150.2
+2020,Food,153.7
+2021,Food,157.5
+2022,Food,171.5
+2023,Food,184.3
+2019,Shelter,144.5
+2020,Shelter,147
+2021,Shelter,152.7
+2022,Shelter,163.3
+2023,Shelter,172.5
+2019,"Household operations, furnishings and equipment",123.6
+2020,"Household operations, furnishings and equipment",123.8
+2021,"Household operations, furnishings and equipment",125.2
+2022,"Household operations, furnishings and equipment",130.9
+2023,"Household operations, furnishings and equipment",132
+2019,Clothing and footwear,96.1
+2020,Clothing and footwear,94.4
+2021,Clothing and footwear,94.1
+2022,Clothing and footwear,95.4
+2023,Clothing and footwear,96.4
+2019,Transportation,141.5
+2020,Transportation,141.2
+2021,Transportation,151.4
+2022,Transportation,167.5
+2023,Transportation,169
+2019,Gasoline,170.5
+2020,Gasoline,146.7
+2021,Gasoline,192.4
+2022,Gasoline,247.2
+2023,Gasoline,228.4
+2019,Health and personal care,127.4
+2020,Health and personal care,129.2
+2021,Health and personal care,132.6
+2022,Health and personal care,138
+2023,Health and personal care,145.8
+2019,"Recreation, education and reading",116.8
+2020,"Recreation, education and reading",115.7
+2021,"Recreation, education and reading",117.9
+2022,"Recreation, education and reading",123.5
+2023,"Recreation, education and reading",126.4
+2019,"Alcoholic beverages, tobacco products and recreational cannabis",171.1
+2020,"Alcoholic beverages, tobacco products and recreational cannabis",171.9
+2021,"Alcoholic beverages, tobacco products and recreational cannabis",175
+2022,"Alcoholic beverages, tobacco products and recreational cannabis",181.3
+2023,"Alcoholic beverages, tobacco products and recreational cannabis",190.5
+2019,All-items excluding food and energy,130.5
+2020,All-items excluding food and energy,132
+2021,All-items excluding food and energy,135.1
+2022,All-items excluding food and energy,141.8
+2023,All-items excluding food and energy,147.3
+2019,All-items excluding energy,134
+2020,All-items excluding energy,135.8
+2021,All-items excluding energy,139
+2022,All-items excluding energy,146.9
+2023,All-items excluding energy,153.5
+2019,Energy,159.3
+2020,Energy,147.2
+2021,Energy,175
+2022,Energy,214.4
+2023,Energy,205.5
+2019,Goods,122.7
+2020,Goods,122.5
+2021,Goods,128.3
+2022,Goods,139.4
+2023,Goods,143.8
+2019,Services,149.2
+2020,Services,151.3
+2021,Services,154.8
+2022,Services,162.6
+2023,Services,170.1
