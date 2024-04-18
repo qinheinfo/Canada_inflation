@@ -1,6 +1,6 @@
 ---
 title: "Analyzing Inflation Dynamics in Canada During and After the COVID-19 Pandemic: A Deep Dive into Consumer Price Index Movements from 2019 to 2023"
-format: html
+format: pdf
 author: 
 - Qin He
 abstract: "The COVID-19 pandemic has left a significant imprint on global economic structures, influencing inflation rates worldwide. Canada, like many countries, experienced fluctuating inflation rates during and post-pandemic, marking a period of economic instability and adjustment. This paper delves into the inflation dynamics in Canada from 2019 to 2023, with a special focus on the consumer price index (CPI) as a reflection of the cost of goods and services impacting the everyday lives of Canadians. It explores the trajectory of the overall inflation rate, which peaked in 2023, highlighting the role of various sectors, including food, housing, and energy, in driving these trends. By analyzing data from Statistics Canada, this study provides insights into how the pandemic and subsequent recovery phases have affected inflation. It examines the interplay between supply chain disruptions, monetary policy responses, and changes in consumer behavior, culminating in a comprehensive overview of inflation's impact on the Canadian economy. This analysis not only sheds light on the inflationary trends but also contributes to understanding the broader economic implications of the COVID-19 pandemic on Canada."
@@ -52,9 +52,10 @@ The remainder of this paper is structured as follows. @sec-data....
 # Data
 
 ## Measurement
-xxx
 
 ## Data Analysis
+This paper uses data from both Statistics Canada’s Consumer Price Index (CPI) and the Bank of Canada’s Inflation Rate measurements. Within the CPI, the paper specifically examines 6 variables representing different food items: bacon (per 500 grams), eggs (per 1 dozen), chicken breasts (per kilogram), milk (per 2 liters), frozen peas (per 750 grams), and pasta sauce (per 650 milliliters). These 6 food items were 3selected as a representation of various food types and groups, allowing an analysis of meats, dairy, frozen goods, and shelf-stable food. The CPI displays a price of each food item by month of a given year, and was subsequently cleaned to find the average of a given year. Limitations in the history of the data only allow for analysis from 2017 up to 2022. Once the data was cleaned, a cost rate (the difference in price of a given year against the previous year) was calculated to show the change in price in order to measure the food item against inflation. It is important to note that, since the data only extends to 2017, a cost rate analysis from the years 2018 to 2022. The rate of inflation measurements similarly recorded data month-to-month and required cleaning to show the yearly average. Although the inflation rate data set provided a far more robust history, only the years 2017 to 2022 were included in this analysis as inflation was only used as a comparison against food cost rates.
+
 
 # Results
 
@@ -64,6 +65,8 @@ xxx
 #| messages: false
 #| echo: false
 #| warning: false
+#| label: fig-1
+#| fig-cap: "Comparison of Food Value and All-items Value Over Time"
 
 # Load necessary libraries
 library(ggplot2)
@@ -81,7 +84,6 @@ ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_
   geom_line(size = 1) +  # Draw lines for both groups
   geom_point(size = 2) +  # Highlight data points for both groups
   labs(
-    title = "Trend of Value of Food and All-items from 2019 to 2023",
     y = "Value",
     x = "Year",
     color = "Product Group"
@@ -94,11 +96,8 @@ ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: fig-2
-#| fig-cap: "Comparison of Food Value and All-items Value Over Time"
-#| fig-align: center
-#| fig-width: 10
-#| fig-height: 3
+#| label: tbl-1
+#| tbl-cap: "Comparison of Food Value and All-items Value Over Time"
 # Read and prepare the dataset for displaying in a table format
 library(readr)
 library(dplyr)
@@ -125,11 +124,342 @@ wide_data_display <- wide_data |>
   )
 
 # Render the table using knitr::kable and kableExtra::kable_styling
-wide_data_display |>
-  knitr::kable(align = "l", booktabs = TRUE, escape = FALSE, linesep = "" ) |>
-  kable_styling(font_size = 10, latex_options = "hold_position", full_width = TRUE)
+kable(wide_data_display)
 ```
 
+## Household operations, furnishings and equipment
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| label: fig-1
+#| fig-cap: "Comparison of Household Value and All-items Value Over Time"
+
+# Load necessary libraries
+library(ggplot2)
+library(readr)
+
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Filter for the "Food" and "All-items" product groups
+filtered_data <- data[data$products_and_product_groups %in% c('Household operations, furnishings and equipment', 'All-items'),]
+
+# Plotting
+ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_groups, group = products_and_product_groups)) +
+  geom_line(size = 1) +  # Draw lines for both groups
+  geom_point(size = 2) +  # Highlight data points for both groups
+  labs(
+    y = "Value",
+    x = "Year",
+    color = "Product Group"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
+
+```
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| label: tbl-1
+#| tbl-cap: "Comparison of Household Value and All-items Value Over Time"
+# Read and prepare the dataset for displaying in a table format
+library(readr)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Reshape data to wide format using modern pipe syntax
+wide_data <- data |> 
+  filter(products_and_product_groups %in% c('Household operations, furnishings and equipment', 'All-items')) |>
+  spread(key = products_and_product_groups, value = value) |>
+  rename(Year = ref_date)
+
+# Assuming that the 'value' columns are already in the correct format and do not need additional formatting
+
+# Prepare the data for the table display
+wide_data_display <- wide_data |>
+  select(Year, 'Household operations, furnishings and equipment', `All-items`) |> 
+  rename(
+    `Household Value` = 'Household operations, furnishings and equipment', 
+    `All-items Value` = `All-items`
+  )
+
+# Render the table using knitr::kable and kableExtra::kable_styling
+kable(wide_data_display)
+```
+
+## Clothing and footwear
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| label: fig-1
+#| fig-cap: "Comparison of Clothing Value and All-items Value Over Time"
+
+# Load necessary libraries
+library(ggplot2)
+library(readr)
+
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Filter for the "Clothing and footwear" and "All-items" product groups
+filtered_data <- data[data$products_and_product_groups %in% c('Clothing and footwear', 'All-items'),]
+
+# Plotting
+ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_groups, group = products_and_product_groups)) +
+  geom_line(size = 1) +  # Draw lines for both groups
+  geom_point(size = 2) +  # Highlight data points for both groups
+  labs(
+    y = "Value",
+    x = "Year",
+    color = "Product Group"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
+
+```
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| label: tbl-1
+#| tbl-cap: "Comparison of Clothing Value and All-items Value Over Time"
+# Read and prepare the dataset for displaying in a table format
+library(readr)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Reshape data to wide format using modern pipe syntax
+wide_data <- data |> 
+  filter(products_and_product_groups %in% c('Clothing and footwear', 'All-items')) |>
+  spread(key = products_and_product_groups, value = value) |>
+  rename(Year = ref_date)
+
+# Assuming that the 'value' columns are already in the correct format and do not need additional formatting
+
+# Prepare the data for the table display
+wide_data_display <- wide_data |>
+  select(Year, 'Clothing and footwear', `All-items`) |> 
+  rename(
+    `Clothing Value` = 'Clothing and footwear', 
+    `All-items Value` = 'All-items'
+  )
+
+# Render the table using knitr::kable and kableExtra::kable_styling
+kable(wide_data_display)
+```
+
+## Gasoline
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| label: fig-1
+#| fig-cap: "Comparison of Gasoline Value and All-items Value Over Time"
+
+# Load necessary libraries
+library(ggplot2)
+library(readr)
+
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Filter for the "Gasoline" and "All-items" product groups
+filtered_data <- data[data$products_and_product_groups %in% c('Gasoline', 'All-items'),]
+
+# Plotting
+ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_groups, group = products_and_product_groups)) +
+  geom_line(size = 1) +  # Draw lines for both groups
+  geom_point(size = 2) +  # Highlight data points for both groups
+  labs(
+    y = "Value",
+    x = "Year",
+    color = "Product Group"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
+
+```
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| label: tbl-1
+#| tbl-cap: "Comparison of Gasoline Value and All-items Value Over Time"
+# Read and prepare the dataset for displaying in a table format
+library(readr)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Reshape data to wide format using modern pipe syntax
+wide_data <- data |> 
+  filter(products_and_product_groups %in% c('Gasoline', 'All-items')) |>
+  spread(key = products_and_product_groups, value = value) |>
+  rename(Year = ref_date)
+
+# Assuming that the 'value' columns are already in the correct format and do not need additional formatting
+
+# Prepare the data for the table display
+wide_data_display <- wide_data |>
+  select(Year, 'Gasoline', `All-items`) |> 
+  rename(
+    `Gasoline Value` = 'Gasoline', 
+    `All-items Value` = 'All-items'
+  )
+
+# Render the table using knitr::kable and kableExtra::kable_styling
+kable(wide_data_display)
+```
+
+## Health and personal care
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| label: fig-1
+#| fig-cap: "Comparison of Healthcare Value and All-items Value Over Time"
+
+# Load necessary libraries
+library(ggplot2)
+library(readr)
+
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Filter for the "Health and personal care" and "All-items" product groups
+filtered_data <- data[data$products_and_product_groups %in% c('Health and personal care', 'All-items'),]
+
+# Plotting
+ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_groups, group = products_and_product_groups)) +
+  geom_line(size = 1) +  # Draw lines for both groups
+  geom_point(size = 2) +  # Highlight data points for both groups
+  labs(
+    y = "Value",
+    x = "Year",
+    color = "Product Group"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
+
+```
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| label: tbl-1
+#| tbl-cap: "Comparison of Healthcare Value and All-items Value Over Time"
+# Read and prepare the dataset for displaying in a table format
+library(readr)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Reshape data to wide format using modern pipe syntax
+wide_data <- data |> 
+  filter(products_and_product_groups %in% c('Health and personal care', 'All-items')) |>
+  spread(key = products_and_product_groups, value = value) |>
+  rename(Year = ref_date)
+
+# Assuming that the 'value' columns are already in the correct format and do not need additional formatting
+
+# Prepare the data for the table display
+wide_data_display <- wide_data |>
+  select(Year, 'Health and personal care', `All-items`) |> 
+  rename(
+    `Healthcare Value` = 'Health and personal care', 
+    `All-items Value` = 'All-items'
+  )
+
+# Render the table using knitr::kable and kableExtra::kable_styling
+kable(wide_data_display)
+```
+## Recreation, education and reading
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| label: fig-1
+#| fig-cap: "Comparison of Recreation, education and reading Value and All-items Value Over Time"
+
+# Load necessary libraries
+library(ggplot2)
+library(readr)
+
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Filter for the "Recreation, education and reading" and "All-items" product groups
+filtered_data <- data[data$products_and_product_groups %in% c('Recreation, education and reading', 'All-items'),]
+
+# Plotting
+ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_groups, group = products_and_product_groups)) +
+  geom_line(size = 1) +  # Draw lines for both groups
+  geom_point(size = 2) +  # Highlight data points for both groups
+  labs(
+    y = "Value",
+    x = "Year",
+    color = "Product Group"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
+
+```
+```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| label: tbl-1
+#| tbl-cap: "Comparison of Recreation, education and reading Value and All-items Value Over Time"
+# Read and prepare the dataset for displaying in a table format
+library(readr)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+# Read the dataset
+data <- read.csv(here::here("data/cleaned_data.csv"))
+
+# Reshape data to wide format using modern pipe syntax
+wide_data <- data |> 
+  filter(products_and_product_groups %in% c('Recreation, education and reading', 'All-items')) |>
+  spread(key = products_and_product_groups, value = value) |>
+  rename(Year = ref_date)
+
+# Assuming that the 'value' columns are already in the correct format and do not need additional formatting
+
+# Prepare the data for the table display
+wide_data_display <- wide_data |>
+  select(Year, 'Recreation, education and reading', `All-items`) |> 
+  rename(
+    `Recreation, education and reading Value` = 'Recreation, education and reading', 
+    `All-items Value` = 'All-items'
+  )
+
+# Render the table using knitr::kable and kableExtra::kable_styling
+kable(wide_data_display)
+```
 
 
 
