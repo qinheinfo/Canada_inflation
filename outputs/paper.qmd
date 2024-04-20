@@ -10,7 +10,7 @@ editor: visual
 toc: TRUE
 toc-depth: 1
 number-sections: TRUE
-bibliography: outputs/references.bib
+bibliography: references.bib
 thanks: "See the GitHub repository supporting this analysis: https://github.com/qinheinfo/Canada_inflation"
 ---
 
@@ -53,9 +53,15 @@ This paper delves into the relationship between the prices of various consumer g
 # Data
 
 ## Measurement
+The data used in this paper comes from Statistics Canada’s Consumer Price Index (CPI), Prices for the CPI are collected across a variety of geographic locations and from a selection of goods and services representative of Canadian consumer spending. The data collection targets urban and rural private households, excluding specific demographics such as those residing in collective households or on Indian reserves. Price collectors employ a detailed specification approach to ensure consistency in the quality and type of goods and services priced [@CPI_info].
+
+Sampling for the CPI is carefully designed to reflect the relative importance of each item in the total expenditures of consumers. A mix of probability and non-probability sampling techniques is employed to select a diverse and representative set of retail outlets and goods. Prices are typically collected during the first two weeks of each reference month, with some variations depending on the nature of the goods or services.
+
+The CPI data are gathered from direct survey responses, administrative records, and other relevant Statistics Canada surveys. This multimodal collection ensures a comprehensive capture of price movements across the selected basket items. Prices are collected monthly, quarterly, semi-annually, or annually based on the nature of the goods or services, with food prices often collected into the third week of the month.
+
 
 ## Data Analysis
-This paper uses data from both Statistics Canada’s Consumer Price Index (CPI) and the Bank of Canada’s Inflation Rate measurements. Within the CPI, the paper specifically examines 6 variables representing different food items: bacon (per 500 grams), eggs (per 1 dozen), chicken breasts (per kilogram), milk (per 2 liters), frozen peas (per 750 grams), and pasta sauce (per 650 milliliters). These 6 food items were 3selected as a representation of various food types and groups, allowing an analysis of meats, dairy, frozen goods, and shelf-stable food. The CPI displays a price of each food item by month of a given year, and was subsequently cleaned to find the average of a given year. Limitations in the history of the data only allow for analysis from 2017 up to 2022. Once the data was cleaned, a cost rate (the difference in price of a given year against the previous year) was calculated to show the change in price in order to measure the food item against inflation. It is important to note that, since the data only extends to 2017, a cost rate analysis from the years 2018 to 2022. The rate of inflation measurements similarly recorded data month-to-month and required cleaning to show the yearly average. Although the inflation rate data set provided a far more robust history, only the years 2017 to 2022 were included in this analysis as inflation was only used as a comparison against food cost rates.
+This paper utilizes data from Statistics Canada's Consumer Price Index (CPI), focusing on a subset of six variables that represent diverse categories of consumer spending: food, household essentials, clothing, gasoline, healthcare, and recreation. These categories were carefully selected to encompass a broad spectrum of goods and services, providing a comprehensive sight of consumer price changes during significant economic periods. The analysis covers the period from 2019 to 2023, a timeline strategically chosen to encompass the main phases of the COVID-19 pandemic as well as the subsequent post-pandemic economic environment.
 
 
 # Results
@@ -507,8 +513,18 @@ Recreation, education, and reading sector saw an overall increase in value throu
 
 # Discussion
 
+## Summary
+The overall CPI rose steadily from 2019 to 2023, peaking in 2022, indicative of broad economic pressures. This general trend highlights the pervasive impact of the pandemic across all sectors, though the intensity of the impact varied. The analysis underscores the complex interplay between supply chain disruptions, altered consumer behaviors, and inflationary expectations, which collectively influenced the trajectory of price changes.
 
+The varied responses across sectors suggest differential resilience and vulnerability to economic shocks. For example, the sharp rise in food prices not only reflects supply chain issues but also changes in consumer preferences and possible speculative behaviors. Similarly, the fluctuations in gasoline prices highlight the external dependency on global markets, which can rapidly transmit economic shocks into domestic inflation.
 
+## Limitations
+The primary constraint is the reliance on CPI data, which, despite its comprehensive nature, may not capture the granular impacts of economic policies, consumer sentiment, or unrecorded market activities. Moreover, the analysis period, though strategically chosen to cover the main phases of the pandemic, does not allow for the examination of long-term economic impacts, which may become more apparent in subsequent years [@IMF_blog].
+
+## Future Directions
+Future research should aim to address these limitations by incorporating more diverse data sources, such as consumer surveys or micro-level transaction data, to provide a deeper understanding of individual and sector-specific economic behaviors [@UTokyo]. Longitudinal studies extending beyond the immediate aftermath of the pandemic could offer insights into the lasting effects of such a global crisis on consumer price indices [@IMF_blog].
+
+Additionally, comparative studies involving multiple countries could enhance the robustness of the findings, allowing for a broader evaluation of CPI dynamics in different economic systems and stages of recovery [@Global_inflation]. Exploring the impact of specific government interventions or policy changes on the CPI could also yield valuable insights into effective strategies for managing inflation in crisis situations.
 
 
 \newpage
