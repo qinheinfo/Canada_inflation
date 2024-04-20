@@ -10,7 +10,7 @@ editor: visual
 toc: TRUE
 toc-depth: 1
 number-sections: TRUE
-bibliography: references.bib
+bibliography: outputs/references.bib
 thanks: "See the GitHub repository supporting this analysis: https://github.com/qinheinfo/Canada_inflation"
 ---
 
@@ -40,13 +40,14 @@ product_data <- read.csv(here::here("data/cleaned_data.csv"), stringsAsFactors =
 ```
 
 
+\newpage
 
 # Introduction
+The decision to analyze Canadian inflation during the COVID-19 pandemic was prompted by the significant economic disturbances observed globally. As a G7 nation with a prominent economic footprint, Canada offers a nuanced perspective on the complexities of inflation during times of crisis. The Consumer Price Index (CPI), a critical economic indicator, measures the average change over time in the prices paid by urban consumers for a standard basket of goods and services [@investopedia_CPI]. The CPI is instrumental in shaping economic policies, such as adjustments to interest rates, wages, and social benefits, which in turn directly influence the everyday economic experiences of individuals [@Forum_CPI].
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+Amidst the pandemic and subsequent global events like the war in Ukraine, consumer prices have been significantly impacted. Canadians have grappled with rising costs in many aspects of their daily lives due to supply chain disruptions, oil price volatility, and shifts in consumer demand. The CPI, Statistics Canada's primary measure of inflation, has captured these extraordinary impacts, with inflation rates reaching four-decade highs in 2022. [@Statisticsca_CPI]
 
-The remainder of this paper is structured as follows. @sec-data....
-
+This paper delves into the relationship between the prices of various consumer goods and Canada's inflation rate. Leveraging data from Statistics Canada, it examines the five-year cost trajectory of common grocery store items across categories such as food, household goods, clothing, gasoline, healthcare, and recreation. Additionally, it analyzes yearly average inflation rates from 2019 to 2023. By studying the percentage increases in the prices of these items, this research seeks to uncover potential correlations between specific cost fluctuations and broader inflation trends, thereby enhancing our understanding of inflation's influence on the Canadian economy.[@CPI_data]
 
 
 # Data
@@ -60,6 +61,7 @@ This paper uses data from both Statistics Canada’s Consumer Price Index (CPI) 
 # Results
 
 ## Food
+@fig-1 illustrates the trajectory of both the Food Value and the All-items Value over a five-year span, from 2019 to 2023. A stark contrast is evident in the divergence of these two lines post-2020, potentially indicative of the varying impact of the pandemic on food prices compared to general inflation. The steeper gradient of the Food curve suggests an amplified reaction to pandemic-related factors, which may include disruptions in the supply chain, changes in consumer demand, and perhaps shifts in agricultural productivity.
 
 ```{r}
 #| messages: false
@@ -92,6 +94,9 @@ ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_
   scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
 
 ```
+@tbl-1 offers a numerical perspective on the trends highlighted in Figure 1, providing the exact annual values that reflect the differential inflation rates for Food and All-items. It is clear from the table that the Food Value consistently increased at a higher rate than the All-items Value each consecutive year. Notably, between 2022 and 2023, the Food Value rose from 171.5 to 184.3, while the All-items Value exhibited a more moderate climb from 151.2 to 157.1. This quantifiable data underscores the disproportionate inflationary pressures on food items.
+
+
 ```{r}
 #| messages: false
 #| echo: false
@@ -126,13 +131,17 @@ wide_data_display <- wide_data |>
 # Render the table using knitr::kable and kableExtra::kable_styling
 kable(wide_data_display)
 ```
+both @fig-1 and @tbl-1 reveal that food-related inflation has outstripped the general inflation rate during the period analyzed. This divergence is most pronounced in the later years, notably between 2022 and 2023, suggesting that while the general cost of living increased during the pandemic, the cost of food increased even more markedly. These findings could have implications for economic policy, as they underscore the need to address the specific drivers of food inflation in the context of the pandemic's broader economic impact.
+
 
 ## Household operations, furnishings and equipment
+In @fig-2 depicts a comparative analysis specifically focusing on the Household Value, relative to the All-items Value, over a period from 2019 to 2023. The value associated with Household operations, furnishings, and equipment shows a gradual increase over the five-year span. The progression is steady from 2019 to 2021, followed by a more noticeable rise from 2021 to 2023. This suggests a delayed but eventual response to inflationary pressures within the household sector during and post the pandemic period. The consistency in the upward trajectory, however, does not match the sharp incline observed in the All-items Value, especially from 2021 onwards.
+
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: fig-1
+#| label: fig-2
 #| fig-cap: "Comparison of Household Value and All-items Value Over Time"
 
 # Load necessary libraries
@@ -143,7 +152,7 @@ library(readr)
 # Read the dataset
 data <- read.csv(here::here("data/cleaned_data.csv"))
 
-# Filter for the "Food" and "All-items" product groups
+# Filter for the "Household" and "All-items" product groups
 filtered_data <- data[data$products_and_product_groups %in% c('Household operations, furnishings and equipment', 'All-items'),]
 
 # Plotting
@@ -159,11 +168,13 @@ ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_
   scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
 
 ```
+@tbl-2 supports the observations from the graph by providing the exact figures for the Household Value. With a modest rise from 123.6 in 2019 to 132.0 in 2023, the increase in household-related costs is apparent, yet not as drastic as the general inflation trend. The year-to-year change remains relatively ,moderate, with the most significant jump observed between 2021 and 2022, suggesting a particular period where inflation hit household items more significantly compared to the preceding years.
+
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: tbl-1
+#| label: tbl-2
 #| tbl-cap: "Comparison of Household Value and All-items Value Over Time"
 # Read and prepare the dataset for displaying in a table format
 library(readr)
@@ -193,13 +204,18 @@ wide_data_display <- wide_data |>
 # Render the table using knitr::kable and kableExtra::kable_styling
 kable(wide_data_display)
 ```
+In light of the inflation dynamics in Canada during and after the COVID-19 pandemic, the Household Value data illustrates that this category has experienced inflation, but not to the extreme extents seen in the aggregate of all items. This could indicate that household operations, furnishings, and equipment were subjected to different economic forces or benefited from factors that mitigated more extreme price increases, such as alternative supply chains, less volatile demand, or different pricing strategies within the sector.
+
 
 ## Clothing and footwear
+In @fig-3, the line graph showcases the 'Clothing and footwear' value relative to the 'All-items' value over a five-year period, from 2019 to 2023. The 'Clothing and footwear' line remains remarkably flat, indicating that the value has not significantly increased over time. This stability suggests that clothing and footwear were less affected by inflationary pressures compared to the average of all consumer goods and services, which is depicted by the rising 'All-items' line.
+
+
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: fig-1
+#| label: fig-3
 #| fig-cap: "Comparison of Clothing Value and All-items Value Over Time"
 
 # Load necessary libraries
@@ -226,11 +242,14 @@ ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_
   scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
 
 ```
+Delving into the numerical details provided in @tbl-3, we see that the Clothing Value begins at 96.1 in 2019 and shows a slight decrease until 2021, where it reaches its lowest at 94.1. This could indicate a reduced demand for clothing and footwear during the peak periods of the COVID-19 pandemic, possibly due to lockdowns and shifts in consumer spending towards essentials. However, by 2023, the Clothing Value modestly increases to 96.4, suggesting a slow return towards pre-pandemic levels.
+
+
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: tbl-1
+#| label: tbl-3
 #| tbl-cap: "Comparison of Clothing Value and All-items Value Over Time"
 # Read and prepare the dataset for displaying in a table format
 library(readr)
@@ -260,13 +279,19 @@ wide_data_display <- wide_data |>
 # Render the table using knitr::kable and kableExtra::kable_styling
 kable(wide_data_display)
 ```
+The juxtaposition of the flat trend for Clothing and Footwear against the rising trend of the All-items Value highlights a distinct economic behavior within the clothing sector. This sector appears to have been shielded from the inflation that affected other sectors more broadly. Possible reasons for this could include a decrease in consumer spending on fashion and discretionary items during the pandemic, shifts in retail and e-commerce strategies, or an oversupply in the market.
+
 
 ## Gasoline
+@fig-4 presents a line graph comparing the Gasoline Value to the All-items Value from 2019 to 2023. The Gasoline line shows a significant and volatile shift over the period, with a notable dip in 2020 followed by a sharp increase through to 2022. This volatility is contrasted against the more gradual upward trend of the All-items Value.
+
+The steep decrease in Gasoline Value in 2020 aligns with the global reduction in oil prices and travel activity during the early stages of the COVID-19 pandemic. However, the subsequent sharp rise through 2021 and into 2022 might reflect the resurgence in travel demand, combined with fluctuations in oil production and supply chain issues, leading to a spike in gasoline prices that outpaces the general inflation rate.
+
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: fig-1
+#| label: fig-4
 #| fig-cap: "Comparison of Gasoline Value and All-items Value Over Time"
 
 # Load necessary libraries
@@ -293,11 +318,14 @@ ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_
   scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
 
 ```
+@tbl-4 supports the graphical data by providing the exact figures for both Gasoline and All-items Values. Starting at 170.5 in 2019, the Gasoline Value decreases to 146.7 in 2020. The year 2021 marks the beginning of a steep climb to 192.4, continuing to a peak at 247.2 in 2022 before a slight retreat to 228.4 in 2023. The All-items Value, in comparison, rises steadily from 136.0 in 2019 to 157.1 in 2023, without the same level of fluctuation seen in gasoline prices.
+
+
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: tbl-1
+#| label: tbl-4
 #| tbl-cap: "Comparison of Gasoline Value and All-items Value Over Time"
 # Read and prepare the dataset for displaying in a table format
 library(readr)
@@ -327,13 +355,18 @@ wide_data_display <- wide_data |>
 # Render the table using knitr::kable and kableExtra::kable_styling
 kable(wide_data_display)
 ```
+Gasoline prices experienced significant fluctuations, with a dramatic increase that far exceeds the inflation trend of other consumer goods and services. The sharp rise in gasoline prices could have a cascading effect on the broader economy due to the essential nature of fuel in transportation and logistics, potentially contributing to the inflation of other items. The trend in gasoline prices is indicative of the unique economic pressures faced in the energy sector, including the impact of global events on oil markets and the transition to alternative energy sources.
+
 
 ## Health and personal care
+@fig-5 displays the value of 'Health and personal care' relative to the 'All-items' value over the span of 2019 to 2023. The line for 'Health and personal care' exhibits a steady upward trend, though at a slower rate than the 'All-items' value. The growth in the health sector is consistent, which could suggest ongoing inflationary pressures in health-related goods and services, but it is not as steep as the overall inflation.
+
+
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: fig-1
+#| label: fig-5
 #| fig-cap: "Comparison of Healthcare Value and All-items Value Over Time"
 
 # Load necessary libraries
@@ -360,11 +393,13 @@ ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_
   scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
 
 ```
+The numerical data in @tbl-5 offers a clearer picture of this trend. Starting at a value of 127.4 in 2019, 'Health and personal care' experiences a moderate increase each year, reaching 145.8 in 2023. The annual growth is steady without any significant spikes, indicating that while there has been inflation within the healthcare sector, it has been relatively controlled and predictable.
+
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: tbl-1
+#| label: tbl-5
 #| tbl-cap: "Comparison of Healthcare Value and All-items Value Over Time"
 # Read and prepare the dataset for displaying in a table format
 library(readr)
@@ -394,12 +429,16 @@ wide_data_display <- wide_data |>
 # Render the table using knitr::kable and kableExtra::kable_styling
 kable(wide_data_display)
 ```
+This data may point to the fact that despite the overall economic turbulence experienced during the COVID-19 pandemic, the health and personal care sector has not inflated to the same extent as the aggregate of all items. It may also reflect the essential status of healthcare, which could lead to more stable pricing regardless of broader economic conditions. The relative stability in health and personal care costs could be critical for policy discussions around healthcare affordability and accessibility during times of economic stress.
+
 ## Recreation, education and reading
+In @fig-6, the trend for 'Recreation, education, and reading' demonstrates a gradual yet consistent upward movement over the years 2019 to 2023. It shows a steady increase in value, albeit not as steep as the 'All-items' category, which experiences a more pronounced rise during the same period. This suggests that while general inflation has been rising, the costs within the recreation and education sectors have been increasing at a comparatively milder rate.
+
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: fig-1
+#| label: fig-6
 #| fig-cap: "Comparison of Recreation, education and reading Value and All-items Value Over Time"
 
 # Load necessary libraries
@@ -426,11 +465,14 @@ ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_
   scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
 
 ```
+
+@tbl-6 offers a year-by-year comparison of the values for 'Recreation, education, and reading' against the 'All-items' values. Beginning in 2019, the value for recreation and education starts at 116.8, dips slightly to 115.7 in 2020, and then gradually increases to 117.9 in 2021. This slight decrease followed by an increase could be indicative of the initial impact of the pandemic, with subsequent adaptation and recovery in the sector. Moving into 2022 and 2023, the values continue to rise to 123.5 and 126.4, respectively, underscoring a continued but moderate growth in contrast to the more significant inflationary trend seen across the broad spectrum of consumer goods and services, where the 'All-items' value moves from 136.0 in 2019 to 157.1 in 2023.
+
 ```{r}
 #| messages: false
 #| echo: false
 #| warning: false
-#| label: tbl-1
+#| label: tbl-6
 #| tbl-cap: "Comparison of Recreation, education and reading Value and All-items Value Over Time"
 # Read and prepare the dataset for displaying in a table format
 library(readr)
@@ -460,46 +502,12 @@ wide_data_display <- wide_data |>
 # Render the table using knitr::kable and kableExtra::kable_styling
 kable(wide_data_display)
 ```
-
+Recreation, education, and reading sector saw an overall increase in value throughout the five-year period, although at a pace that was slower than the overall increase in consumer prices. The resilience of this sector's value, rising despite the economic challenges of the pandemic, may suggest a robust demand for recreational, educational, and reading products and services. Additionally, it could reflect the impact of digital alternatives and online services that became more prevalent during the pandemic, potentially offsetting higher costs or changes in consumer behavior as individuals and families sought at-home entertainment and learning options.
 
 
 # Discussion
 
-## First discussion point {#sec-first-point}
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix {-}
-
-
-# Additional data details
-
-# Model details {#sec-model-details}
-
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
-
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
 
 
 
