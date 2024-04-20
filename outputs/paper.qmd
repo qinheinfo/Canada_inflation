@@ -11,7 +11,7 @@ toc: TRUE
 toc-depth: 1
 number-sections: TRUE
 bibliography: references.bib
-thanks: "See the GitHub repository supporting this analysis: https://github.com/qinheinfo/Canada_inflation"
+thanks: "The GitHub repository: https://github.com/qinheinfo/Canada_inflation"
 ---
 
 ```{r}
@@ -47,7 +47,7 @@ The decision to analyze Canadian inflation during the COVID-19 pandemic was prom
 
 Amidst the pandemic and subsequent global events like the war in Ukraine, consumer prices have been significantly impacted. Canadians have grappled with rising costs in many aspects of their daily lives due to supply chain disruptions, oil price volatility, and shifts in consumer demand. The CPI, Statistics Canada's primary measure of inflation, has captured these extraordinary impacts, with inflation rates reaching four-decade highs in 2022. [@Statisticsca_CPI]
 
-This paper delves into the relationship between the prices of various consumer goods and Canada's inflation rate. Leveraging data from Statistics Canada, it examines the five-year cost trajectory of common grocery store items across categories such as food, household goods, clothing, gasoline, healthcare, and recreation. Additionally, it analyzes yearly average inflation rates from 2019 to 2023. By studying the percentage increases in the prices of these items, this research seeks to uncover potential correlations between specific cost fluctuations and broader inflation trends, thereby enhancing our understanding of inflation's influence on the Canadian economy.[@CPI_data]
+This paper explores the relationship between the CPI values of specific product categories and the all-items CPI. Utilizing data from Statistics Canada, it examines the cost trajectory from 2019 to 2023 for commonly purchased items in grocery stores across categories such as food, household goods, clothing, gasoline, healthcare, and recreation. By analyzing the increases in CPI values for these items, this research aims to identify potential correlations between specific cost fluctuations and broader inflation trends. This analysis enhances our understanding of how inflation impacts the Canadian economy, shedding light on the dynamic interplay between individual spending categories and overall economic conditions. [@CPI_data]
 
 
 # Data
