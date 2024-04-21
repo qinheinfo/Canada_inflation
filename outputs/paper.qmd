@@ -59,9 +59,25 @@ Sampling for the CPI is carefully designed to reflect the relative importance of
 
 The CPI data are gathered from direct survey responses, administrative records, and other relevant Statistics Canada surveys. This multimodal collection ensures a comprehensive capture of price movements across the selected basket items. Prices are collected monthly, quarterly, semi-annually, or annually based on the nature of the goods or services, with food prices often collected into the third week of the month.
 
+## Dataset
+
+The Dataset were derived from Statistics Canada's Consumer Price Index (CPI), capturing key statistics on Canadian Consumaer Price Index Value of different items encompassing from 2019 to 2023.
+
+@tbl-7 shows the first 5 rows in the dataset, REF_DATE stands for the time that the data was gathered, products_and_product_groups stands for items category, value stands for CPI value.
+
+```{r}
+#| label: tbl-7
+#| tbl-cap: First 5 Rows in Mental Health Indicators Dataset 
+#| echo: false
+
+kable(head(product_data,5))
+```
 
 ## Data Analysis
+To analyze the data , I worked on R [@citeR], using the tidyverse [@tidyverse], [@arrow], and gitcreds [@gitcreds] packages. Tables in the report were created with kableExtra [@kableExtra] and figures were created with ggplot2 which was built in tidyverse [@tidyverse]. 
+
 This paper utilizes data from Statistics Canada's Consumer Price Index (CPI), focusing on a subset of six variables that represent diverse categories of consumer spending: food, household essentials, clothing, gasoline, healthcare, and recreation. These categories were carefully selected to encompass a broad spectrum of goods and services, providing a comprehensive sight of consumer price changes during significant economic periods. The analysis covers the period from 2019 to 2023, a timeline strategically chosen to encompass the main phases of the COVID-19 pandemic as well as the subsequent post-pandemic economic environment.
+
 
 
 # Results
@@ -100,7 +116,7 @@ ggplot(filtered_data, aes(x = ref_date, y = value, color = products_and_product_
   scale_x_continuous(breaks = filtered_data$ref_date) # Ensure all years are shown
 
 ```
-@tbl-1 offers a numerical perspective on the trends highlighted in Figure 1, providing the exact annual values that reflect the differential inflation rates for Food and All-items. It is clear from the table that the Food Value consistently increased at a higher rate than the All-items Value each consecutive year. Notably, between 2022 and 2023, the Food Value rose from 171.5 to 184.3, while the All-items Value exhibited a more moderate climb from 151.2 to 157.1. This quantifiable data underscores the disproportionate inflationary pressures on food items.
+@tbl-1 offers a numerical perspective on the trends highlighted in @fig-1, providing the exact annual values that reflect the differential inflation rates for Food and All-items. It is clear from the table that the Food Value consistently increased at a higher rate than the All-items Value each consecutive year. Notably, between 2022 and 2023, the Food Value rose from 171.5 to 184.3, while the All-items Value exhibited a more moderate climb from 151.2 to 157.1. This quantifiable data underscores the disproportionate inflationary pressures on food items.
 
 
 ```{r}

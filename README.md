@@ -17,4 +17,4 @@ The repo is structured as:
 
 ## Statement on LLM usage
 
-ChatGPT 3.5 was used to help structure data modelling.
+ChatGPT 3.5 was used to help structure, grammer and proofreading.
